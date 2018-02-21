@@ -2,13 +2,32 @@ import React, { Component } from 'react';
 import logo from '../logo.svg';
 import './App.css';
 import NameTag from '../components/NameTag'
-
-
 import Test from '../components/Test';
-import BookListAppTitle from '../components/BookListAppTitle';
 
+
+import {getBooksFromFakeXHR} from '../lib/books.db';
+import BookListAppTitle from '../components/BookListAppTitle';
+import BookList from './bookList/index';
 
 class App extends Component {
+
+  constructor() {
+    super();
+
+    this.state = {
+     bookList: []
+    }
+  }
+
+componentDidMount() {
+  getBooksFromFakeXHR()
+  .then(bookList => {
+    this.setState({bookList})
+  })
+}
+
+
+  //where components are invoked
   render() {
     return (
       <div className="App">
@@ -16,13 +35,10 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header> 
-         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-        <NameTag name="Matt"/>
-
+      
+        <NameTag name="BOOKS:"/>
         <Test title=""/>
-        
+        <BookList books={this.state.bookList} />
 
       </div>
     );
