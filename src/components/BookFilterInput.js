@@ -2,7 +2,7 @@ import React from 'react';
 
 const BookFilterInput = ({userInput}) => {
 
-  console.log(userInput)
+  //console.log(userInput)
   return (
     <div>
 
