@@ -27,7 +27,6 @@ class App extends Component {
     this.handleChangeTitle = this.handleChangeTitle.bind(this)
     this.handleChangeAuthor = this.handleChangeAuthor.bind(this)
     this.submitHandler = this.submitHandler.bind(this)
-
   }
 
   componentDidMount() {
@@ -44,59 +43,29 @@ class App extends Component {
 
   handleChangeTitle(event) {
     const userInput = event.target.value;
-    //console.log('HANDLE CHANGE TITLE -----------',userInput)
-    // this.setState({ newBook: Object.assign({}, this.state.NewBook, { title: userInput }) });
-    //console.log(this.state)
+    this.setState({ newBook: Object.assign({}, this.state.newBook, { title: userInput }) })
     // this.setState({
-    //   newBook: {
-    //     title: event.target.value
-    //   }
+    //   newBook : {...this.state.newBook, title:event.target.value}
     // })
-    this.setState({
-      newBook : {...this.state.newBook, title:event.target.value}
-    })
-
-
   }
 
   handleChangeAuthor(event) {
     const userInput = event.target.value;
-    //console.log('HANDLE CHANGE AUTHOR -----' , userInput)
-    // this.setState({ newBook: Object.assign({}, this.state.NewBook, { author: userInput }) });
-    //console.log(this.state)
+    this.setState({ newBook: Object.assign({}, this.state.newBook, { author: userInput }) })
     // this.setState({
-    //   newBook: {
-    //     author: event.target.value
-    //   }
+    //   newBook : {...this.state.newBook, author:event.target.value}
     // })
-
-    this.setState({
-      newBook : {...this.state.newBook, author:event.target.value}
-    })
-
   }
 
   submitHandler(event) {
     event.preventDefault();
-    console.log('hey')
-    console.log(this.state.newBook)
     addBookToFakeXHR(this.state.newBook)
-    .then(result => {
-      console.log(result)
-      this.setState({
-        bookListArr: result
+      .then(result => {
+        this.setState({
+          bookListArr: result
+        })
       })
-    })
-    // addBook({title: this.state.newBook.title, author: this.state.newBook.author})
   }
-
-  // addBook(book) {
-  //   addBookToFakeXHR(book)
-  //   .then(result => {
-  //     this.setState({})
-  //   })
-  // }
-
 
 
   //where components are invoked
@@ -107,9 +76,9 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <NameTag name="BOOKS:" />
+        <NameTag name="BOOK List:" />
 
-        <NewBookForm inputTitle={this.handleChangeTitle} inputAuthor={this.handleChangeAuthor} submitHandler={this.submitHandler}/>
+        <NewBookForm inputTitle={this.handleChangeTitle} inputAuthor={this.handleChangeAuthor} submitHandler={this.submitHandler} />
 
         <br />
 
@@ -117,11 +86,27 @@ class App extends Component {
 
         <BookList books={this.state.bookListArr} findBook={this.state.findBook} />
 
-
-
       </div>
     );
   }
 }
 
+
+
 export default App;
+
+
+
+
+
+
+
+
+
+// TWO WAYS OF REASSIGNIG STATE FOR REACT
+
+// this.setState({ newBook: Object.assign({}, this.state.newBook, { title: userInput }) })
+
+// this.setState({
+//   newBook: { ...this.state.newBook, author: event.target.value }
+// })
