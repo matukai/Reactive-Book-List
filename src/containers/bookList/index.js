@@ -1,11 +1,27 @@
 import React from 'react';
 import BookListItem from '../../components/bookListItems';
+import BookFilterInput from '../../components/BookFilterInput';
 
-const BookList = ({ books }) => {
+
+const BookList = ({ books , findBook }) => {
+  console.log(findBook)
+  console.log('BOOKS BEFORE RETURN' , books)
   return(
+    
     <div>
       {
-        books.map((book) => {
+        books
+        .filter(book => {
+          console.log('BOOK TITLE' , book.title);
+          console.log('INDEXOF' , book.title.indexOf(findBook))
+          //console.log(book.title.indexOf(findBook))
+        return(
+
+          book.title.indexOf(findBook) !== -1 ||
+          book.author.indexOf(findBook) !== -1
+        );
+      })
+        .map((book) => {
             return(
               <BookListItem 
                 key = { book._id } 
@@ -13,8 +29,7 @@ const BookList = ({ books }) => {
                 author = { book.author }
               />
             )
-          })
-                 
+          })       
       }
     </div>
   )
