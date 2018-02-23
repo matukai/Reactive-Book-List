@@ -1,15 +1,35 @@
-export const ADD_TODO = 'ADD_TODO';
-export const INCREMENT_NEXT_ID ='INCREMENT_NEXT_ID';
+import { getBooksFromFakeXHR } from '../lib/books.db';
+export const GET_BOOKS = 'GET_BOOKS';
 
-export const addTodo = (todo) => {
 
-  const newTodo = {
-    item: todo,
-    completed: false
+export const getBooks = () => {
+
+  let bookList = [{
+    _id : 1,
+    title : 'Talion: The Revenant from DB',
+    author : 'Michael A. Stackpole'
+  },
+  {
+    _id : 2,
+    title : 'Ready Player One from DB',
+    author : 'Ernest Cline'
+  },
+  {
+    _id : 3,
+    title : 'Enders Game from DB',
+    author : 'Orson Scott Card'
   }
+]
+
+  // getBooksFromFakeXHR()
+  // .then(listOfBooks => {
+  //   console.log('XHR', listOfBooks)
+  //   bookList.push(listOfBooks);
+  // })
 
   return {
-    type: 'ADD_TODO',
-    todo: newTodo
+    type: 'GET_BOOKS',
+    books: bookList
   }
 }
+

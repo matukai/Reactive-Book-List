@@ -2,71 +2,25 @@ import React, { Component } from 'react';
 import logo from '../logo.svg';
 import './App.css';
 import NameTag from '../components/NameTag'
-import Test from '../components/Test';
-
-
-import { getBooksFromFakeXHR, addBookToFakeXHR } from '../lib/books.db';
-import BookListAppTitle from '../components/BookListAppTitle';
-import BookList from './bookList/index';
-import BookFilterInput from '../components/BookFilterInput';
-import NewBookForm from '../components/NewBookForm';
 import {connect} from 'react-redux';
+import { getBooks } from '../Actions/bookListActions';
+import BookList from './bookList/index';
+
+
+//import Test from '../components/Test';
+//import BookListAppTitle from '../components/BookListAppTitle';
+//import BookFilterInput from '../components/BookFilterInput';
+//import NewBookForm from '../components/NewBookForm';
 
 
 class App extends Component {
 
-  constructor() {
-    super();
-
-    this.state = {
-      bookListArr: [],
-      findBook: '',
-      newBook: {
-        title: '',
-        author: ''
-      }
-    }
-    this.handleChangeTitle = this.handleChangeTitle.bind(this)
-    this.handleChangeAuthor = this.handleChangeAuthor.bind(this)
-    this.submitHandler = this.submitHandler.bind(this)
+  constructor(props) {
+    super(props);
   }
 
   componentDidMount() {
-    getBooksFromFakeXHR()
-      .then(bookListArr => {
-        this.setState({ bookListArr })
-      })
-  }
-
-  findLeBook(event) {
-    const searched = event.target.value;
-    this.setState({ findBook: searched });
-  }
-
-  handleChangeTitle(event) {
-    const userInput = event.target.value;
-    this.setState({ newBook: Object.assign({}, this.state.newBook, { title: userInput }) })
-    // this.setState({
-    //   newBook : {...this.state.newBook, title:event.target.value}
-    // })
-  }
-
-  handleChangeAuthor(event) {
-    const userInput = event.target.value;
-    this.setState({ newBook: Object.assign({}, this.state.newBook, { author: userInput }) })
-    // this.setState({
-    //   newBook : {...this.state.newBook, author:event.target.value}
-    // })
-  }
-
-  submitHandler(event) {
-    event.preventDefault();
-    addBookToFakeXHR(this.state.newBook)
-      .then(result => {
-        this.setState({
-          bookListArr: result
-        })
-      })
+    this.props.getBooks()
   }
 
   //where components are invoked
@@ -77,30 +31,41 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
-        <NameTag name="BOOK List:" />
+        <NameTag name="BOOK List:"/>
 
-        <NewBookForm inputTitle={this.handleChangeTitle} inputAuthor={this.handleChangeAuthor} submitHandler={this.submitHandler} />
+        <BookList books={this.props.bookList}/>
 
-        <br />
+        {/* <NewBookForm inputTitle={this.handleChangeTitle} inputAuthor={this.handleChangeAuthor} submitHandler={this.submitHandler} /> */}
 
-        <BookFilterInput userInput={this.findLeBook.bind(this)} />
+       
 
-        <BookList books={this.state.bookListArr} findBook={this.state.findBook} />
+        {/* <BookFilterInput userInput={this.findLeBook.bind(this)} /> */}
+
+        {/* <BookList books={this.state.bookListArr} findBook={this.state.findBook} /> */}
 
       </div>
     );
   }
 }
 
+//from store methods
 const mapStateToProps = state => {
+  console.log('MAPSTATETOPROPS' , state)
   return {
-
+    bookList: state.bookListReducer.books
+    
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
 
+//methods
+const mapDispatchToProps = dispatch => {
+  //console.log(dispatch)
+  //console.log(getBooks)
+  return {
+    getBooks: () => {
+      dispatch(getBooks())
+    },
   }
 }
 
