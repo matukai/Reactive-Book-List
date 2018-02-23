@@ -21,11 +21,13 @@ export const getBooks = () => {
   }
 ]
 
+
   // getBooksFromFakeXHR()
   // .then(listOfBooks => {
   //   console.log('XHR', listOfBooks)
   //   bookList.push(listOfBooks);
   // })
+  console.log('bbbbbbb', bookList)
 
   return {
     type: 'GET_BOOKS',

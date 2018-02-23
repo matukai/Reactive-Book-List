@@ -1,11 +1,12 @@
 import React from 'react';
-// import BookListItem from '../../components/bookListItems';
+import BookListItem from '../../components/bookListItems';
 // import BookFilterInput from '../../components/BookFilterInput';
 
 
 const BookList = ({ books , findBook }) => {
   //console.log(findBook)
-  //console.log('BOOKS BEFORE RETURN' , books)
+  // console.log('BOOKS BEFORE RETURN' , books)
+  // console.log(books)
   return(
     
     <div>
@@ -21,6 +22,7 @@ const BookList = ({ books , findBook }) => {
       //   );
       // })
         .map((book) => {
+          
             return(
               <BookListItem 
                 key = { book._id } 

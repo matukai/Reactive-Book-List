@@ -51,6 +51,7 @@ class App extends Component {
 //from store methods
 const mapStateToProps = state => {
   console.log('MAPSTATETOPROPS' , state)
+  
   return {
     bookList: state.bookListReducer.books
     
