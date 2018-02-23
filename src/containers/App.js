@@ -10,6 +10,8 @@ import BookListAppTitle from '../components/BookListAppTitle';
 import BookList from './bookList/index';
 import BookFilterInput from '../components/BookFilterInput';
 import NewBookForm from '../components/NewBookForm';
+import {connect} from 'react-redux';
+
 
 class App extends Component {
 
@@ -67,7 +69,6 @@ class App extends Component {
       })
   }
 
-
   //where components are invoked
   render() {
     return (
@@ -91,9 +92,25 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+}
+
+const ConnectedApp = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
+export default ConnectedApp
 
 
-export default App;
 
 
 
